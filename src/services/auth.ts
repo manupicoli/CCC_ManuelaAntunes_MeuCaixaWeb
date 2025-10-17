@@ -10,9 +10,15 @@ export type TokenResponse = {
 
 const STORAGE_KEY = 'meucaixa_tokens';
 
-const KEYCLOAK_TOKEN_URL = 'http://localhost:8080/realms/meucaixa/protocol/openid-connect/token';
-const CLIENT_ID = 'meucaixa-web';
-const CLIENT_SECRET = 'EUNE1wElqGgAfgmjZN7Y7rQA6zafA75S';
+const {
+  VITE_KEYCLOAK_TOKEN_URL,
+  VITE_CLIENT_ID,
+  VITE_CLIENT_SECRET,
+} = import.meta.env as any;
+
+const KEYCLOAK_TOKEN_URL = VITE_KEYCLOAK_TOKEN_URL || 'http://localhost:8080/realms/meucaixa/protocol/openid-connect/token';
+const CLIENT_ID = VITE_CLIENT_ID || 'meucaixa-web';
+const CLIENT_SECRET = VITE_CLIENT_SECRET;
 
 function saveTokens(tokens: TokenResponse) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tokens));
