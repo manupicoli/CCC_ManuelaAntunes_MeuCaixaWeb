@@ -12,13 +12,17 @@ export default function Login() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!username.trim() || !password) return setError('Informe usuário e senha');
+
+    if (!username.trim() || !password) {
+        return setError('Informe usuário e senha');
+    }
     setLoading(true);
+
     try {
       await auth.login(username.trim(), password);
       navigate('/');
     } catch (err: any) {
-      setError(err?.message ?? 'Erro no login');
+      setError('Credenciais inválidas');
     } finally {
       setLoading(false);
     }
