@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as auth from '../../services/auth';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -19,7 +18,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await auth.login(username.trim(), password);
+      //TODO
       navigate('/');
     } catch (err: any) {
       setError('Credenciais inválidas');
@@ -32,10 +31,10 @@ export default function Login() {
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
       <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: 8, width: 320}}>
         <h2>Login</h2>
-        <input placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} />
-        <input placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button type="submit" disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}</button>
-        {error && <div style={{color: 'crimson'}}>{error}</div>}
+          <input placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} />
+          <input placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <button type="submit" disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}</button>
+          {error && <div style={{color: 'crimson'}}>{error}</div>}
       </form>
     </div>
   );
