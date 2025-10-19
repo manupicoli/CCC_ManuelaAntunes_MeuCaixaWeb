@@ -1,27 +1,28 @@
-import { StrictMode, type JSX } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import "../src/styles/global.css";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
-
-function Protected({ children }: { children: JSX.Element }) {
-  const isAuthenticated = false; 
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  return children;
-}
+import { AuthProvider } from './context/AuthContext';
+import Protected from './components/Protected';
+import "../src/styles/global.css";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/" element={
-          <Protected>
-            <Home />
-          </Protected>
-        } />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <Protected>
+                <Home />
+              </Protected>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </StrictMode>
 )
