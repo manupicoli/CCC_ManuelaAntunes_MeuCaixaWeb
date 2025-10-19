@@ -24,8 +24,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await loginUser({ username, password });
-      setToken(response.access_token);
+      const response = await loginUser({ username, password });      
+      setToken(response.accessToken);
       navigate('/');
     } catch (err: any) {
       setError('Usuário ou senha inválidos.');
