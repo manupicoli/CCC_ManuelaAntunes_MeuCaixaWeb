@@ -6,6 +6,8 @@ interface LoginRequest {
 }
 
 interface LoginResponse {
+  id: string;
+  customerCode: string;
   accessToken: string;
   refreshToken: string;
   expiresIn: number;

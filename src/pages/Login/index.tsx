@@ -10,7 +10,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { setToken } = useAuth();
+  const { setToken, setUserId, setCustomerCode } = useAuth();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -25,6 +25,8 @@ export default function Login() {
     try {
       const response = await loginUser({ username, password });      
       setToken(response.accessToken);
+      setUserId(response.id);
+      setCustomerCode(response.customerCode);
       navigate('/');
     } catch (err: any) {
       setError('Usuário ou senha inválidos.');
