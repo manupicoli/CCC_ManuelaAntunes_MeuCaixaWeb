@@ -14,7 +14,7 @@ export default function Home() {
     <div className="min-h-screen text-center p-20">
         <h1>Bem-vindo!</h1>
         <button 
-            className="bg-blue-600 text-white rounded-md p-2" 
+            className="bg-blue-600 text-white rounded-md p-2 cursor-pointer" 
             onClick={handleLogout}>Sair</button>
     </div>
     );
