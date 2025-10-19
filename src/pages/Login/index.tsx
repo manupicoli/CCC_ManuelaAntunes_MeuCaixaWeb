@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userService';
 import { useAuth } from '../../context/AuthContext';
-import "./style.css";
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -35,27 +34,34 @@ export default function Login() {
   }
 
   return (
-    <div className='container'>
-      <form onSubmit={handleSubmit} className='form'>
-        <h2>Login</h2>
-          <input 
-            placeholder="Usuário" 
-            type='text' 
-            value={username} 
-            onChange={e => setUsername(e.target.value)} 
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 sm:p-8">
+          <h2 className="text-3xl font-bold text-blue-700 mb-1 text-center">MeuCaixa</h2>
+          <p className="text-sm text-gray-500 mb-6 text-center">Acesse sua conta</p>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            className="h-11 px-3 border rounded-md"
+            placeholder="Usuário"
+            type='text'
+            value={username}
+            onChange={e => setUsername(e.target.value)}
           />
-          <input 
-            placeholder="Senha" 
-            type="password" 
-            value={password} 
-            onChange={e => setPassword(e.target.value)} 
+          <input
+            className="h-11 px-3 border rounded-md"
+            placeholder="Senha"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
           <button 
-            type="submit" 
+            className="h-11 bg-blue-600 text-white rounded-md font-semibold cursor-pointer"
+            type="submit"
             disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}
           </button>
-          {error && <div style={{color: 'crimson'}}>{error}</div>}
-      </form>
+          {error && <div className="text-red-500 bg-white p-2 rounded">{error}</div>}
+        </form>
+      </div>
     </div>
   );
 }

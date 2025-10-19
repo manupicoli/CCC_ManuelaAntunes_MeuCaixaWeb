@@ -1,12 +1,14 @@
+@import "tailwindcss";
+
 :root {
-  --background: #D2CDC6;
+  --background: linear-gradient(180deg, #e6f0ff 0%, #ffffff 100%);
   --foreground: #171717;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Montserrat';
+  font-family:  'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 1px;
