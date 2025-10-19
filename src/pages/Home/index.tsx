@@ -11,9 +11,11 @@ export default function Home() {
     }
 
     return (
-    <div style={{ padding: 20 }}>
-        <h1>Bem-vindo, !</h1>
-        <button onClick={handleLogout}>Sair</button>
+    <div className="min-h-screen text-center p-20">
+        <h1>Bem-vindo!</h1>
+        <button 
+            className="bg-blue-600 text-white rounded-md p-2" 
+            onClick={handleLogout}>Sair</button>
     </div>
     );
 }
