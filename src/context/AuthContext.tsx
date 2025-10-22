@@ -3,9 +3,11 @@ import type { ReactNode } from 'react';
 
 interface AuthContextType {
   token: string | null;
+  refreshToken?: string | null;
   userId: string | null;
   customerCode: string | null;
   setToken: (token: string | null) => void;
+  setRefreshToken: (refreshToken: string | null) => void;
   setUserId: (userId: string | null) => void;
   setCustomerCode: (customerCode: string | null) => void;
   isAuthenticated: boolean;
@@ -14,9 +16,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({
   token: null,
+  refreshToken: null,
   userId: null,
   customerCode: null,
   setToken: () => {},
+  setRefreshToken: () => {},
   setUserId: () => {},
   setCustomerCode: () => {},
   isAuthenticated: false,
@@ -25,11 +29,13 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [customerCode, setCustomerCode] = useState<string | null>(null);
  
   function logout() {
     setToken(null);
+    setRefreshToken(null);
     setUserId(null);
     setCustomerCode(null);
   }
@@ -37,10 +43,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider 
       value={{ 
-        token, 
+        token,
+        refreshToken,
         userId,
         customerCode,
         setToken,
+        setRefreshToken,
         setUserId,
         setCustomerCode,
         isAuthenticated: !!token,
