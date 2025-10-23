@@ -6,6 +6,7 @@ import { HiOutlineDocumentReport } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 interface SidemenuInterface {
   collapsed: boolean;
@@ -20,12 +21,12 @@ export default function Sidemenu (props: SidemenuInterface) {
             <Sidebar collapsed={props.collapsed} className="min-h-screen">
                 <Menu closeOnClick={true}>
                     <MenuItem icon={<CiMenuBurger />} onClick={props.onToggle} />
-                    <MenuItem icon={<RxDashboard />}> Dashboard </MenuItem>
-                    <MenuItem icon={<FaMoneyBillTrendUp />}> Registros </MenuItem>
-                    <MenuItem icon={<FaTag />}> Categorias </MenuItem>
-                    <MenuItem icon={<HiOutlineDocumentReport />}> Relatórios </MenuItem>
-                    <MenuItem icon={<IoIosNotifications />}> Notificações</MenuItem>
-                    <MenuItem icon={<CgProfile />}> Perfil </MenuItem>
+                    <MenuItem icon={<RxDashboard />} component={<Link to="/dashboard" />}> Dashboard </MenuItem>
+                    <MenuItem icon={<FaMoneyBillTrendUp />} component={<Link to="/registros" />}> Registros </MenuItem>
+                    <MenuItem icon={<FaTag />} component={<Link to="/categorias" />}> Categorias </MenuItem>
+                    <MenuItem icon={<HiOutlineDocumentReport />} component={<Link to="/relatorios" />}> Relatórios </MenuItem>
+                    <MenuItem icon={<IoIosNotifications />} component={<Link to="/notificacoes" />}> Notificações</MenuItem>
+                    <MenuItem icon={<CgProfile />} component={<Link to="/perfil" />}> Perfil </MenuItem>
                 </Menu>
             </Sidebar>
         </div>
