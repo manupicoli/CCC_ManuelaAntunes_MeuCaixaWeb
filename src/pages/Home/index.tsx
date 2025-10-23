@@ -16,19 +16,22 @@ export default function Home() {
     const collapsedWidth = 80;
 
     return (
-    <div className="min-h-screen">
-        <Sidemenu collapsed={collapsed} onToggle={() => setCollapsed(c => !c)} expandedWidth={expandedWidth} collapsedWidth={collapsedWidth} />
+        <div className="min-h-screen">
+            <Sidemenu collapsed={collapsed} 
+                      onToggle={() => setCollapsed(c => !c)} 
+                      expandedWidth={expandedWidth} 
+                      collapsedWidth={collapsedWidth} />
 
-        <div style={{ marginLeft: collapsed ? collapsedWidth : expandedWidth, transition: 'margin-left 200ms ease' }}>
-            <div className="flex items-center justify-between p-4">
-                <button onClick={handleLogout} className="bg-blue-600 text-white border-none py-2 px-4 rounded cursor-pointer">Sair</button>
-            </div>
+            <div style={{ marginLeft: collapsed ? collapsedWidth : expandedWidth, transition: 'margin-left 200ms ease' }}>
+                <div className="flex items-center justify-between p-4">
+                    <button onClick={handleLogout} className="bg-blue-600 text-white border-none py-2 px-4 rounded cursor-pointer">Sair</button>
+                </div>
 
-            <div className="p-4">
-                <h1>Bem-vindo!</h1>
-                <p>Conteúdo principal aqui.</p>
+                <div className="p-4">
+                    <h1>Bem-vindo!</h1>
+                    <p>Conteúdo principal aqui.</p>
+                </div>
             </div>
         </div>
-    </div>
     );
 }

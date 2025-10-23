@@ -1,5 +1,4 @@
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
-import type { FC } from 'react';
 import { RxDashboard } from "react-icons/rx";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaTag } from "react-icons/fa";
@@ -8,21 +7,21 @@ import { IoIosNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
 
-type Props = {
+type SidemenuInterface = {
   collapsed: boolean;
   onToggle: () => void;
   expandedWidth?: number;
   collapsedWidth?: number;
 };
 
-const Sidemenu: FC<Props> = ({ collapsed, onToggle, expandedWidth = 300, collapsedWidth = 80 }) => {
+export default function Sidemenu (props: SidemenuInterface) {
     return (
-        <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: collapsed ? collapsedWidth : expandedWidth, transition: 'width 200ms ease', zIndex: 40 }}>
-            <Sidebar collapsed={collapsed} className="min-h-screen">
+        <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: props.collapsed ? props.collapsedWidth : props.expandedWidth, transition: 'width 200ms ease', zIndex: 40 }}>
+            <Sidebar collapsed={props.collapsed} className="min-h-screen">
                 <Menu closeOnClick={true}>
-                    <MenuItem icon={<CiMenuBurger />} onClick={onToggle} />
+                    <MenuItem icon={<CiMenuBurger />} onClick={props.onToggle} />
                     <MenuItem icon={<RxDashboard />}> Dashboard </MenuItem>
-                    <MenuItem icon={<FaMoneyBillTrendUp />}> Registros financeiros </MenuItem>
+                    <MenuItem icon={<FaMoneyBillTrendUp />}> Registros </MenuItem>
                     <MenuItem icon={<FaTag />}> Categorias </MenuItem>
                     <MenuItem icon={<HiOutlineDocumentReport />}> Relatórios </MenuItem>
                     <MenuItem icon={<IoIosNotifications />}> Notificações</MenuItem>
@@ -32,5 +31,3 @@ const Sidemenu: FC<Props> = ({ collapsed, onToggle, expandedWidth = 300, collaps
         </div>
     );
 };
-
-export default Sidemenu;
