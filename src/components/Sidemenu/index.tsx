@@ -7,7 +7,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
 
-type SidemenuInterface = {
+interface SidemenuInterface {
   collapsed: boolean;
   onToggle: () => void;
   expandedWidth?: number;
