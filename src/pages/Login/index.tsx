@@ -28,7 +28,7 @@ export default function Login() {
       setUserId(response.id);
       setCustomerCode(response.customerCode);
       setRefreshToken(response.refreshToken);
-      navigate('/');
+      navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError('Usuário ou senha inválidos.');
     } finally {

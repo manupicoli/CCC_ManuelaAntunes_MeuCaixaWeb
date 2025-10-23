@@ -21,11 +21,10 @@ createRoot(document.getElementById('root')!).render(
               <Protected>
                 <AppLayout />
               </Protected>
-            }
-          >
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<Dashboard/>} />
-            {/* future child routes: registros, categorias, relatorios, perfil, etc. */}
+}>
+              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route path="dashboard" element={<Dashboard/>} />
+              
           </Route>
 
         </Routes>
