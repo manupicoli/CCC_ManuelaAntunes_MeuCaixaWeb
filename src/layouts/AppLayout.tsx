@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Sidemenu from "../components/Sidemenu";
-import LogoutButton from "../components/Logout";
 import { Outlet } from 'react-router-dom';
 
 export default function AppLayout() {
@@ -17,10 +16,6 @@ export default function AppLayout() {
                       collapsedWidth={collapsedWidth} />
 
             <div style={{ marginLeft: collapsed ? collapsedWidth : expandedWidth, transition: 'margin-left 200ms ease' }}>
-                <div className="flex items-center justify-between p-4">
-                    <LogoutButton />
-                </div>
-
                 <main>
                     <Outlet />
                 </main>
