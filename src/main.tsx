@@ -21,12 +21,11 @@ createRoot(document.getElementById('root')!).render(
               <Protected>
                 <AppLayout />
               </Protected>
-}>
+            }>
               <Route index element={<Navigate to="/dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard/>} />
               
           </Route>
-
         </Routes>
       </BrowserRouter>
     </AuthProvider>

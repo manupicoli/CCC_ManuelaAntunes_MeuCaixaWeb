@@ -1,3 +1,5 @@
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 import api from './api';
 
 interface LoginRequest {
@@ -31,4 +33,9 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
 export async function createUser(data: CreateUserRequest) {
   const response = await api.post(`/user/create`, data);
   return response.data;
+}
+
+export async function handleLogout(logout: () => void, navigate: (to: string) => void) {
+  logout(); 
+  navigate('/login');
 }
