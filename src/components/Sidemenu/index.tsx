@@ -2,8 +2,8 @@ import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { RxDashboard } from "react-icons/rx";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaTag } from "react-icons/fa";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { IoIosNotifications } from "react-icons/io";
+// import { HiOutlineDocumentReport } from "react-icons/hi";
+// import { IoIosNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,10 +28,10 @@ export default function Sidemenu (props: SidemenuInterface) {
                 <Menu closeOnClick={true}>
                     <MenuItem icon={<CiMenuBurger />} onClick={props.onToggle} />
                     <MenuItem icon={<RxDashboard />} component={<Link to="/dashboard" />}> Dashboard </MenuItem>
-                    <MenuItem icon={<FaMoneyBillTrendUp />} component={<Link to="/registros" />}> Registros </MenuItem>
+                    <MenuItem icon={<FaMoneyBillTrendUp />} component={<Link to="/registros-financeiros" />}> Registros </MenuItem>
                     <MenuItem icon={<FaTag />} component={<Link to="/categorias" />}> Categorias </MenuItem>
-                    <MenuItem icon={<HiOutlineDocumentReport />} component={<Link to="/relatorios" />}> Relatórios </MenuItem>
-                    <MenuItem icon={<IoIosNotifications />} component={<Link to="/notificacoes" />}> Notificações</MenuItem>
+                    {/* TODO <MenuItem icon={<HiOutlineDocumentReport />} component={<Link to="/relatorios" />}> Relatórios </MenuItem> */}
+                    {/* TODO <MenuItem icon={<IoIosNotifications />} component={<Link to="/notificacoes" />}> Notificações</MenuItem> */}
                     <MenuItem icon={<CgProfile />} component={<Link to="/perfil" />}> Perfil </MenuItem>
                     <MenuItem icon={<MdLogout />} onClick={() => handleLogout(logout, navigate)}> Sair </MenuItem>
                 </Menu>
