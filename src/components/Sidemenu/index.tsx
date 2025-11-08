@@ -8,7 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { MdLogout } from "react-icons/md";
-import { handleLogout } from "../../services/userService";
+import { handleLogout } from "../../services/api/userService";
 import { useAuth } from "../../context/AuthContext";
 
 interface SidemenuInterface {

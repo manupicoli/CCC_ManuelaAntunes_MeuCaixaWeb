@@ -1,4 +1,4 @@
-import api from './api';
+import { Api } from "./ApiConfig";
 
 interface LoginRequest {
   username: string;
@@ -24,12 +24,12 @@ interface CreateUserRequest {
 }
 
 export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
-  const response = await api.post<LoginResponse>(`/v1/user/login`, data);
+  const response = await Api().post<LoginResponse>(`/v1/user/login`, data);
   return response.data;
 }
 
 export async function createUser(data: CreateUserRequest) {
-  const response = await api.post(`/user/create`, data);
+  const response = await Api().post(`/user/create`, data);
   return response.data;
 }
 
