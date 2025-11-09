@@ -40,12 +40,12 @@ export default function Category() {
                                                 <button title="Visualizar" aria-label={`Visualizar ${category.title}`} onClick={() => console.log('view', category.id)} className="p-2 rounded hover:bg-gray-100 text-gray-600">
                                                     <FiEye />
                                                 </button>
-                                                <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => console.log('edit', category.id)} className="p-2 rounded hover:bg-blue-50 text-blue-600">
+                                                {!category.isDefault ? <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => console.log('edit', category.id)} className="p-2 rounded hover:bg-blue-50 text-blue-600">
                                                     <FiEdit2 />
-                                                </button>
-                                                <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600">
+                                                </button>: null }
+                                                {!category.isDefault ? <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600">
                                                     <FiTrash2 />
-                                                </button>
+                                                </button> : null}
                                             </div>
                                         </td>
                                     </tr>
