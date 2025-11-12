@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
 
-export default function Category() {
+export default function CategoryList() {
+    const navigate = useNavigate();
     const request = useMemo(() => ({ page: 0, size: 10 }), []);
     const { data, loading, error } = useCategories(request);
 
@@ -24,7 +26,7 @@ export default function Category() {
                                     <th scope="col" className="py-3 px-2">Título</th>
                                     <th scope="col" className="py-3 px-2">Descrição</th>
                                     <th scope="col" className="flex items-center justify-center py-3 px-2">Padrão</th>
-                                    <th scope="col" className="py-3 px-2">Ações</th>
+                                    <th scope="col" className="py-3 px-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,17 +38,17 @@ export default function Category() {
                                             <input type="checkbox" checked={!!category.isDefault} readOnly/>
                                         </td>
                                         <td className="py-3 px-2">
-                                            <div className="flex items-center gap-2">
-                                                <button title="Visualizar" aria-label={`Visualizar ${category.title}`} onClick={() => console.log('view', category.id)} className="p-2 rounded hover:bg-gray-100 text-gray-600">
+                                            { !category.isDefault ? <div className="flex items-center gap-2">
+                                                <button title="Visualizar" aria-label={`Visualizar ${category.title}`} onClick={() => navigate(`/categorias/${category.id}`)} className="p-2 rounded hover:bg-gray-100 text-gray-600">
                                                     <FiEye />
                                                 </button>
-                                                {!category.isDefault ? <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => console.log('edit', category.id)} className="p-2 rounded hover:bg-blue-50 text-blue-600">
+                                                <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => console.log('edit', category.id)} className="p-2 rounded hover:bg-blue-50 text-blue-600">
                                                     <FiEdit2 />
-                                                </button>: null }
-                                                {!category.isDefault ? <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600">
+                                                </button>
+                                                <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600">
                                                     <FiTrash2 />
-                                                </button> : null}
-                                            </div>
+                                                </button>
+                                            </div> : null }
                                         </td>
                                     </tr>
                                 ))}

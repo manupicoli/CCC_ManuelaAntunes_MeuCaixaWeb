@@ -5,6 +5,7 @@ import type { PaginatedResponse } from '../services/api/types';
 import type { Category } from '../models/category';
 import { useAuth } from '../context/AuthContext';
 import { ApiException } from '../services/api/ApiException';
+import { useNavigate } from 'react-router-dom';
 
 interface UseCategoriesRequest extends Omit<ListCategoriesRequest, 'token'> {
 }
@@ -21,10 +22,18 @@ export function useCategories(request?: UseCategoriesRequest): UseCategoriesResp
   const [data, setData] = useState<PaginatedResponse<Category> | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { token } = useAuth();
+
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();
 
   const fetchCategories = useCallback(async (req?: UseCategoriesRequest) => {
     try {
+      if (!token) {
+        logout();
+        navigate('/login', { replace: true });
+        return null;
+      }
+
       setLoading(true);
       setError(null);
 
@@ -43,7 +52,13 @@ export function useCategories(request?: UseCategoriesRequest): UseCategoriesResp
       return res;
     } catch (error: any) {
       setError(error.message);
-      return null;
+
+      if (error?.response?.status === 401) {
+        logout();
+        navigate('/login', { replace: true });
+      }
+
+      throw error;
     } finally {
       setLoading(false);
     }
