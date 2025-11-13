@@ -17,7 +17,7 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
   });
   const { data, loading, error } = useCategory(id);
 
-  const [isEditable, setIsEditable] = useState(mode !== "view");
+  const isEditable = mode !== "view";
 
   useEffect(() => {
     if (data) {
@@ -75,14 +75,14 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
           {mode === "view" && (
             <button
               onClick={() => navigate(`/categorias/${id}/editar`)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
             >
               Editar
             </button>
           )}
           <button
             onClick={() => navigate(-1)}
-            className="px-4 py-2 rounded-lg border hover:bg-gray-50"
+            className="px-4 py-2 rounded-lg border hover:bg-gray-50 cursor-pointer"
           >
             Voltar
           </button>
@@ -127,7 +127,7 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
         {isEditable && (
           <button
             type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
           >
             Salvar
           </button>

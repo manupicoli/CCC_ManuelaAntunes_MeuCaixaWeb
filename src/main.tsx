@@ -10,7 +10,6 @@ import Dashboard from './pages/Dashboard'
 import CategoryList from './pages/CategoryList';
 import FinancialRecord from './pages/FinancialRecord';
 import Profile from './pages/Profile';
-import CategoryDetail from './pages/CategoryForm';
 import CategoryForm from './pages/CategoryForm';
 
 createRoot(document.getElementById('root')!).render(
