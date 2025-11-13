@@ -4,6 +4,7 @@ interface AlertModalProps {
   title: string;
   message: string;
   onClose: () => void;
+  children?: React.ReactNode;
 }
 
 export default function AlertModal({
@@ -12,6 +13,7 @@ export default function AlertModal({
   title,
   message,
   onClose,
+  children
 }: AlertModalProps) {
   if (!open) return null;
 
@@ -30,12 +32,13 @@ export default function AlertModal({
         <div className="flex flex-col items-center gap-4">
           <h2 className="text-lg font-semibold">{title}</h2>
           <p className="text-gray-700">{message}</p>
-          <button
-            onClick={onClose}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer"
-          >
-            OK
-          </button>
+
+          {children 
+            ? <div className="modal-footer">{children}</div> 
+            : <button onClick={onClose}
+                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                OK
+              </button>}
         </div>
       </div>
     </div>

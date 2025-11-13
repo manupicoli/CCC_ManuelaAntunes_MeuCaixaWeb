@@ -1,12 +1,57 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { FiEye, FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
+import { CategoryService } from "../../services/api/categoryService";
+import { useAuth } from "../../context/AuthContext";
+import AlertModal from "../../components/AlertModal";
 
 export default function CategoryList() {
     const navigate = useNavigate();
     const request = useMemo(() => ({ page: 0, size: 10 }), []);
-    const { data, loading, error } = useCategories(request);
+    const { data, loading, error, reload } = useCategories(request);
+
+    const { token } = useAuth();
+
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [alertData, setAlertData] = useState({
+        open: false,
+        type: "success" as "success" | "error" | "warning",
+        title: "",
+        message: "",
+    });
+
+    const handleDeleteClick = (id: string) => {
+        setSelectedCategoryId(id);
+        setShowConfirmModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!selectedCategoryId) return;
+
+        try {
+            await CategoryService.deleteCategory({ id: selectedCategoryId, token: token! });
+            setAlertData({
+                open: true,
+                type: "success",
+                title: "Categoria excluída",
+                message: "A categoria foi excluída com sucesso.",
+            });
+
+            reload();
+        } catch (error) {
+            setAlertData({
+                open: true,
+                type: "error",
+                title: "Erro ao excluir",
+                message: "Não foi possível excluir a categoria.",
+            });
+        } finally {
+            setShowConfirmModal(false);
+            setSelectedCategoryId(null);
+        }
+    };
 
     if (loading) return <div className="p-6">Carregando...</div>;
     if (error) return <div className="p-6 text-red-600">Erro ao carregar categorias</div>;
@@ -78,7 +123,7 @@ export default function CategoryList() {
                                         <button
                                         title="Excluir"
                                         aria-label={`Excluir ${category.title}`}
-                                        onClick={() => console.log("delete", category.id)}
+                                        onClick={() => handleDeleteClick(category.id)}
                                         className="p-2 rounded-full hover:bg-red-100 text-red-600 cursor-pointer transition"
                                         >
                                         <FiTrash2 />
@@ -92,6 +137,40 @@ export default function CategoryList() {
                     </table>
                 </div>
             </div>
+
+            {showConfirmModal && (
+                <AlertModal
+                    open={showConfirmModal}
+                    type="warning"
+                    title="Confirmar exclusão"
+                    message="Tem certeza que deseja excluir esta categoria?"
+                    onClose={() => setShowConfirmModal(false)}
+                >
+                <div className="flex justify-center gap-4 mt-4">
+                    <button
+                    onClick={confirmDelete}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
+                    >
+                    Sim, excluir
+                    </button>
+                    <button
+                    onClick={() => setShowConfirmModal(false)}
+                    className="border px-4 py-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
+                    >
+                    Cancelar
+                    </button>
+                </div>
+                </AlertModal>
+            )}
+
+            {/* modal de feedback */}
+            <AlertModal
+                open={alertData.open}
+                type={alertData.type}
+                title={alertData.title}
+                message={alertData.message}
+                onClose={() => setAlertData({ ...alertData, open: false })}
+            />
         </div>
   );
 }
