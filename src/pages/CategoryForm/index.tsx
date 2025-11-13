@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useCategory } from "../../hooks/useCategory";
 import { useEffect, useState } from "react";
+import { FiStar } from "react-icons/fi";
 
 type CategoryFormProps = {
   mode: "create" | "view" | "edit";
@@ -114,14 +115,16 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="isDefault"
-            checked={formData.isDefault}
-            onChange={handleChange}
-            disabled={!isEditable}
-          />
-          <label className="text-gray-700">Categoria padrão do sistema</label>
+          {formData.isDefault ? (
+            <span className="inline-flex items-center gap-1 text-base font-semibold text-yellow-700 bg-yellow-100 px-3 py-1 rounded-full">
+                <FiStar className="w-3 h-3" />
+                Padrão
+            </span>
+            ) : (
+            <span className="inline-flex items-center gap-1 text-base font-semibold text-gray-500 bg-blue-100 px-3 py-1 rounded-full">
+                Personalizada
+            </span>
+            )}
         </div>
 
         {isEditable && (
