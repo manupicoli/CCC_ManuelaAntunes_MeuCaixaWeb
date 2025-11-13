@@ -15,6 +15,12 @@ export default function CategoryList() {
         <div className="p-6">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Categorias</h2>
+
+                <button
+                    onClick={() => navigate('/categorias/nova')}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+                    Nova Categoria
+                </button>
             </div>
 
             <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -39,13 +45,13 @@ export default function CategoryList() {
                                         </td>
                                         <td className="py-3 px-2">
                                             { !category.isDefault ? <div className="flex items-center gap-2">
-                                                <button title="Visualizar" aria-label={`Visualizar ${category.title}`} onClick={() => navigate(`/categorias/${category.id}`)} className="p-2 rounded hover:bg-gray-100 text-gray-600">
+                                                <button title="Visualizar" aria-label={`Visualizar ${category.title}`} onClick={() => navigate(`/categorias/${category.id}`)} className="p-2 rounded hover:bg-gray-100 text-gray-600 cursor-pointer">
                                                     <FiEye />
                                                 </button>
-                                                <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => console.log('edit', category.id)} className="p-2 rounded hover:bg-blue-50 text-blue-600">
+                                                <button title="Editar" aria-label={`Editar ${category.title}`} onClick={() => navigate(`/categorias/${category.id}/editar`)} className="p-2 rounded hover:bg-blue-50 text-blue-600 cursor-pointer">
                                                     <FiEdit2 />
                                                 </button>
-                                                <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600">
+                                                <button title="Excluir" aria-label={`Excluir ${category.title}`} onClick={() => console.log('delete', category.id)} className="p-2 rounded hover:bg-red-50 text-red-600 cursor-pointer">
                                                     <FiTrash2 />
                                                 </button>
                                             </div> : null }

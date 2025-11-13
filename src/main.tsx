@@ -10,7 +10,8 @@ import Dashboard from './pages/Dashboard'
 import CategoryList from './pages/CategoryList';
 import FinancialRecord from './pages/FinancialRecord';
 import Profile from './pages/Profile';
-import CategoryDetail from './pages/CategoryDetail';
+import CategoryDetail from './pages/CategoryForm';
+import CategoryForm from './pages/CategoryForm';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,7 +30,9 @@ createRoot(document.getElementById('root')!).render(
               <Route index element={<Navigate to="/dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard/>} />
               <Route path="categorias" element={<CategoryList/>} />
-              <Route path="/categorias/:id" element={<CategoryDetail/>} />
+              <Route path="/categorias/:id" element={<CategoryForm mode='view'/>} />
+              <Route path="/categorias/:id/editar" element={<CategoryForm mode='edit'/>} />
+              <Route path="/categorias/nova" element={<CategoryForm mode='create'/>} />
               <Route path="registros-financeiros" element={<FinancialRecord/>} />
               <Route path="perfil" element={<Profile/>} />
 
