@@ -2,6 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCategory } from "../../hooks/useCategory";
 import { useEffect, useState } from "react";
 import { FiStar } from "react-icons/fi";
+import { CategoryService } from "../../services/api/categoryService";
+import { useAuth } from "../../context/AuthContext";
+import AlertModal from "../../components/AlertModal";
 
 type CategoryFormProps = {
   mode: "create" | "view" | "edit";
@@ -10,12 +13,21 @@ type CategoryFormProps = {
 export default function CategoryForm({ mode }: CategoryFormProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     isDefault: false,
   });
+
+  const [alertData, setAlertData] = useState({
+    open: false,
+    type: "success" as "success" | "error" | "warning",
+    title: "",
+    message: "",
+  });
+
   const { data, loading, error } = useCategory(id);
 
   const isEditable = mode !== "view";
@@ -45,18 +57,39 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (mode === "create") {
-      console.log("Criando categoria:", formData);
-      // chamada API de criação
-    } else if (mode === "edit") {
-      console.log("Atualizando categoria:", { id, ...formData });
-      // chamada API de atualização
-    }
+    try {
+      if (mode === "create") {
+        await CategoryService.createCategory({
+          title: formData.title,
+          description: formData.description,
+          token: token!,
+        });
+      } else if (mode === "edit") {
+        await CategoryService.updateCategory({
+          id: id!,
+          title: formData.title,
+          description: formData.description,
+          token: token!,
+        });
+      }
 
-    navigate("/categorias");
+      setAlertData({
+        open: true,
+        type: "success",
+        title: "Sucesso!",
+        message: "Categoria salva com sucesso.",
+      });
+    } catch (err) {
+      setAlertData({
+        open: true,
+        type: "error",
+        title: "Erro",
+        message: "Ocorreu um erro ao salvar a categoria.",
+      });
+    }
   };
 
   if (loading) return <div className="p-6">Carregando...</div>;
@@ -136,6 +169,19 @@ export default function CategoryForm({ mode }: CategoryFormProps) {
           </button>
         )}
       </form>
+
+        <AlertModal
+          open={alertData.open}
+          type={alertData.type}
+          title={alertData.title}
+          message={alertData.message}
+          onClose={() => {
+            setAlertData((prev) => ({ ...prev, open: false }));
+            if (alertData.type === "success") {
+              navigate("/categorias");
+            }
+          }}
+        />
     </div>
   );
 }
