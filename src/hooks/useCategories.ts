@@ -18,7 +18,7 @@ interface UseCategoriesResponse {
     setData: (data: PaginatedResponse<Category> | null) => void;
 }
 
-export function useCategories(request?: UseCategoriesRequest): UseCategoriesResponse {
+export function useCategories({ page, size }: UseCategoriesRequest): UseCategoriesResponse {
   const [data, setData] = useState<PaginatedResponse<Category> | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +26,7 @@ export function useCategories(request?: UseCategoriesRequest): UseCategoriesResp
   const { token, logout } = useAuth();
   const navigate = useNavigate();
 
-  const fetchCategories = useCallback(async (req?: UseCategoriesRequest) => {
+  const fetchCategories = useCallback(async () => {
     try {
       if (!token) {
         logout();
@@ -39,8 +39,8 @@ export function useCategories(request?: UseCategoriesRequest): UseCategoriesResp
 
       const res = await CategoryService.listCategories({
         token: token!,
-        page: req?.page ?? request?.page ?? 0,
-        size: req?.size ?? request?.size ?? 10,
+        page,
+        size
       });
 
       if (res instanceof ApiException) {
@@ -62,7 +62,7 @@ export function useCategories(request?: UseCategoriesRequest): UseCategoriesResp
     } finally {
       setLoading(false);
     }
-  }, [token, request]);
+  }, [token, page, size, logout, navigate]);
 
   useEffect(() => {
     fetchCategories().catch(() => {});

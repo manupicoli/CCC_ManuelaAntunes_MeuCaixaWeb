@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { FiEye, FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { CategoryService } from "../../services/api/categoryService";
 import { useAuth } from "../../context/AuthContext";
@@ -8,8 +9,10 @@ import AlertModal from "../../components/AlertModal";
 
 export default function CategoryList() {
     const navigate = useNavigate();
-    const request = useMemo(() => ({ page: 0, size: 10 }), []);
-    const { data, loading, error, reload } = useCategories(request);
+
+    const [page, setPage] = useState(0);
+
+    const { data, loading, error, reload } = useCategories({ page, size: 10 });
 
     const { token } = useAuth();
 
@@ -138,6 +141,40 @@ export default function CategoryList() {
                 </div>
             </div>
 
+            {data && (
+                <div className="flex items-center justify-center gap-2 mt-6">
+                    <button onClick={() => setPage(prev => Math.max(prev - 1, 0))}
+                            disabled={page === 0}
+                            className={`px-3 py-2 transition cursor-pointer
+                                ${page === 0
+                                ? "opacity-40 cursor-not-allowed"
+                                : "hover:bg-gray-100 cursor-pointer"}`}>
+                        <FaChevronLeft />
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                        {Array.from({ length: data.page.totalPages }, (_, i) => (
+                            <button key={i}
+                                    onClick={() => setPage(i)}
+                                    className={`w-8 h-8 flex items-center justify-center rounded-lg border text-sm transition cursor-pointer ${
+                                        i === page
+                                        ? "bg-blue-600 text-white border-blue-600"
+                                        : "hover:bg-gray-100"}`}>
+                                {i + 1}
+                            </button>))}
+                    </div>
+
+                    <button onClick={() => setPage(prev => Math.min(prev + 1, data.page.totalPages - 1))}
+                            disabled={page + 1 >= data.page.totalPages}
+                            className={`px-3 py-2 transition cursor-pointer 
+                                ${page + 1 >= data.page.totalPages
+                                ? "opacity-40 cursor-not-allowed"
+                                : "hover:bg-gray-100 cursor-pointer"}`}>
+                        <FaChevronRight />
+                    </button>
+                </div>
+            )}
+
             {showConfirmModal && (
                 <AlertModal
                     open={showConfirmModal}
@@ -163,7 +200,6 @@ export default function CategoryList() {
                 </AlertModal>
             )}
 
-            {/* modal de feedback */}
             <AlertModal
                 open={alertData.open}
                 type={alertData.type}
