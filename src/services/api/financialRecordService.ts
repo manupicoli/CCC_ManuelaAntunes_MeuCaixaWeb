@@ -28,13 +28,13 @@ export interface CreateUpdateFinancialRecordRequest {
 }
 
 export interface DeleteFinancialRecordRequest {
-  id: number;
+  id: string;
   token: string;
 }
 
 export const FinancialRecordService = {
     async listFinancialRecords(request: ListFinancialRecordsRequest): Promise<PaginatedResponse<FinancialRecord> | ApiException> {
-        return await Api().get<PaginatedResponse<FinancialRecord>>(`/v1/financialrecord`, {
+        return await Api().get<PaginatedResponse<FinancialRecord>>(`/v1/financial-record`, {
             params: { ...request },
             headers: { Authorization: `Bearer ${request.token}` },
         })
@@ -46,7 +46,7 @@ export const FinancialRecordService = {
     },
 
     async getFinancialRecordDetails(request: GetFinancialRecordDetailsRequest): Promise<FinancialRecord | ApiException> {
-        return await Api().get<FinancialRecord>(`/v1/financialrecord/${request.id}`, { headers: { Authorization: `Bearer ${request.token}` } })
+        return await Api().get<FinancialRecord>(`/v1/financial-record/${request.id}`, { headers: { Authorization: `Bearer ${request.token}` } })
             .then(res => res.data)
             .catch((error) => {
                 console.log("Error fetching financial record details:", error);
@@ -55,7 +55,7 @@ export const FinancialRecordService = {
     },
 
     async createFinancialRecord(request: CreateUpdateFinancialRecordRequest): Promise<void | ApiException> {
-        await Api().post<FinancialRecord>(`/v1/financialrecord`, request, {
+        await Api().post<FinancialRecord>(`/v1/financial-record`, request, {
                 headers: { 
                     Authorization: `Bearer ${request.token}` 
                 } 
@@ -66,7 +66,7 @@ export const FinancialRecordService = {
     },
 
     async updateFinancialRecord(request: CreateUpdateFinancialRecordRequest): Promise<void | ApiException> {
-        await Api().put<FinancialRecord>(`/v1/financialrecord/${request.id}`, request, {
+        await Api().put<FinancialRecord>(`/v1/financial-record/${request.id}`, request, {
                 headers: { 
                     Authorization: `Bearer ${request.token}` 
                 } 
@@ -75,9 +75,9 @@ export const FinancialRecordService = {
                 return new ApiException(error.response?.message || "Erro ao atualizar registro financeiro");
             });
     },
-    
+
     async deleteFinancialRecord(request: DeleteFinancialRecordRequest): Promise<void | ApiException> {
-        await Api().delete<void>(`/v1/financialrecord/${request.id}`, { headers: { Authorization: `Bearer ${request.token}` } })
+        await Api().delete<void>(`/v1/financial-record/${request.id}`, { headers: { Authorization: `Bearer ${request.token}` } })
             .catch((error) => {
                 console.log("Error deleting financial record:", error);
                 return new ApiException(error.response?.message || "Erro ao deletar registro financeiro");

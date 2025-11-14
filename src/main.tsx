@@ -8,9 +8,9 @@ import "../src/styles/global.css";
 import AppLayout from './layouts/AppLayout'
 import Dashboard from './pages/Dashboard'
 import CategoryList from './pages/CategoryList';
-import FinancialRecord from './pages/FinancialRecord';
 import Profile from './pages/Profile';
 import CategoryForm from './pages/CategoryForm';
+import FinancialRecordList from './pages/FinancialRecordList';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/categorias/:id" element={<CategoryForm mode='view'/>} />
               <Route path="/categorias/:id/editar" element={<CategoryForm mode='edit'/>} />
               <Route path="/categorias/nova" element={<CategoryForm mode='create'/>} />
-              <Route path="registros-financeiros" element={<FinancialRecord/>} />
+              <Route path="registros-financeiros" element={<FinancialRecordList/>} />
               <Route path="perfil" element={<Profile/>} />
 
           </Route>

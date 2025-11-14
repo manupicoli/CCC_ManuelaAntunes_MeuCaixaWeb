@@ -1,4 +1,5 @@
 export interface FinancialRecord {
+  id: string;
   type: "INCOME" | "EXPENSE";
   amount: number;
   categoryTitle: string;
