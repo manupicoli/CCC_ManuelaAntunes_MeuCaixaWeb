@@ -66,7 +66,7 @@ export default function FinancialRecordList() {
         <h2 className="text-2xl font-semibold text-gray-800">Registros Financeiros</h2>
 
         <button
-          onClick={() => navigate("/financeiro/novo")}
+          onClick={() => navigate("/registros-financeiros/novo")}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer shadow-sm"
         >
           Novo Registro
@@ -131,7 +131,7 @@ export default function FinancialRecordList() {
                     <div className="flex items-center justify-center gap-3">
                       <button
                         title="Visualizar"
-                        onClick={() => navigate(`/financeiro/${record.id}`)}
+                        onClick={() => navigate(`/registros-financeiros/${record.id}`)}
                         className="p-2 rounded-full hover:bg-gray-100 text-gray-600 cursor-pointer transition"
                       >
                         <FiEye />
@@ -139,7 +139,7 @@ export default function FinancialRecordList() {
 
                       <button
                         title="Editar"
-                        onClick={() => navigate(`/financeiro/${record.id}/editar`)}
+                        onClick={() => navigate(`/registros-financeiros/${record.id}/editar`)}
                         className="p-2 rounded-full hover:bg-blue-100 text-blue-600 cursor-pointer transition"
                       >
                         <FiEdit2 />
@@ -205,7 +205,6 @@ export default function FinancialRecordList() {
         </div>
       )}
 
-      {/* MODAL DE CONFIRMAÇÃO */}
       {showConfirmModal && (
         <AlertModal
           open={showConfirmModal}
@@ -232,7 +231,6 @@ export default function FinancialRecordList() {
         </AlertModal>
       )}
 
-      {/* ALERTA */}
       <AlertModal
         open={alertData.open}
         type={alertData.type}

@@ -11,6 +11,7 @@ import CategoryList from './pages/CategoryList';
 import Profile from './pages/Profile';
 import CategoryForm from './pages/CategoryForm';
 import FinancialRecordList from './pages/FinancialRecordList';
+import FinancialRecordForm from './pages/FinancialRecordForm';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -33,6 +34,9 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/categorias/:id/editar" element={<CategoryForm mode='edit'/>} />
               <Route path="/categorias/nova" element={<CategoryForm mode='create'/>} />
               <Route path="registros-financeiros" element={<FinancialRecordList/>} />
+              <Route path="/registros-financeiros/:id" element={<FinancialRecordForm mode='view'/>} />
+              <Route path="/registros-financeiros/:id/editar" element={<FinancialRecordForm mode='edit'/>} />
+              <Route path="/registros-financeiros/novo" element={<FinancialRecordForm mode='create'/>} />
               <Route path="perfil" element={<Profile/>} />
 
           </Route>

@@ -3,6 +3,11 @@ import { Api } from "./ApiConfig";
 import { ApiException } from "./ApiException";
 import type { PaginatedResponse } from "./types";
 
+export interface FinancialRecordType {
+    "INCOME": "INCOME";
+    "EXPENSE": "EXPENSE";
+}
+
 export interface ListFinancialRecordsRequest {
   token: string;
   page?: number;
@@ -11,20 +16,20 @@ export interface ListFinancialRecordsRequest {
 }
 
 export interface GetFinancialRecordDetailsRequest {
-  id: number;
+  id: string;
   token: string;
 }
 
 export interface CreateUpdateFinancialRecordRequest {
-  id?: number;
+  id?: string;
   token: string;
   customerCode: string;
-  type: "INCOME" | "EXPENSE";
+  type: FinancialRecordType[keyof FinancialRecordType];
   amount: number;
   dueDate: string | null;
   paymentDate: string | null;
   description?: string;
-  category: number;
+  category: string;
 }
 
 export interface DeleteFinancialRecordRequest {
