@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import type { Category } from "../models/category";
-import { useAuth } from "../context/AuthContext";
+import type { Category } from "../../models/category";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { CategoryService } from "../services/api/categoryService";
-import { ApiException } from "../services/api/ApiException";
+import { CategoryService } from "../../services/api/categoryService";
+import { ApiException } from "../../services/api/ApiException";
 
 export function useCategory(id?: string) {
     const [data, setData] = useState<Category | null>(null);

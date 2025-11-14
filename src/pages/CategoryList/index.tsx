@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCategories } from "../../hooks/useCategories";
+import { useCategories } from "../../hooks/Category/useCategories";
 import { FiEye, FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

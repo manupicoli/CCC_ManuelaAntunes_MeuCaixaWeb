@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CategoryService } from '../services/api/categoryService';
-import type { ListCategoriesRequest } from '../services/api/categoryService';
-import type { PaginatedResponse } from '../services/api/types';
-import type { Category } from '../models/category';
-import { useAuth } from '../context/AuthContext';
-import { ApiException } from '../services/api/ApiException';
+import { CategoryService } from '../../services/api/categoryService';
+import type { ListCategoriesRequest } from '../../services/api/categoryService';
+import type { PaginatedResponse } from '../../services/api/types';
+import type { Category } from '../../models/category';
+import { useAuth } from '../../context/AuthContext';
+import { ApiException } from '../../services/api/ApiException';
 import { useNavigate } from 'react-router-dom';
 
 interface UseCategoriesRequest extends Omit<ListCategoriesRequest, 'token'> {

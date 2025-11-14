@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useCategory } from "../../hooks/useCategory";
+import { useCategory } from "../../hooks/Category/useCategory";
 import { useEffect, useState } from "react";
 import { FiStar } from "react-icons/fi";
 import { CategoryService } from "../../services/api/categoryService";
