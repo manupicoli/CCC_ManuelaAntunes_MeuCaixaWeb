@@ -3,7 +3,7 @@ import { useCategories } from "../../hooks/Category/useCategories";
 import { FiEye, FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { CategoryService } from "../../services/api/categoryService";
+import { CategoryService } from "../../services/api/Category/categoryService";
 import { useAuth } from "../../context/AuthContext";
 import AlertModal from "../../components/AlertModal";
 

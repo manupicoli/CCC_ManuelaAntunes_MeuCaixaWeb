@@ -8,8 +8,8 @@ import { CgProfile } from "react-icons/cg";
 import { CiMenuBurger } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { MdLogout } from "react-icons/md";
-import { handleLogout } from "../../services/api/userService";
 import { useAuth } from "../../context/AuthContext";
+import { UserService } from "../../services/api/User/userService";
 
 interface SidemenuInterface {
   collapsed: boolean;
@@ -33,7 +33,7 @@ export default function Sidemenu (props: SidemenuInterface) {
                     {/* TODO <MenuItem icon={<HiOutlineDocumentReport />} component={<Link to="/relatorios" />}> Relatórios </MenuItem> */}
                     {/* TODO <MenuItem icon={<IoIosNotifications />} component={<Link to="/notificacoes" />}> Notificações</MenuItem> */}
                     <MenuItem icon={<CgProfile />} component={<Link to="/perfil" />}> Perfil </MenuItem>
-                    <MenuItem icon={<MdLogout />} onClick={() => handleLogout(logout, navigate)}> Sair </MenuItem>
+                    <MenuItem icon={<MdLogout />} onClick={() => UserService.handleLogout(logout, navigate)}> Sair </MenuItem>
                 </Menu>
             </Sidebar>
         </div>

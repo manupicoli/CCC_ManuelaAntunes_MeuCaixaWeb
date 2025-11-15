@@ -2,10 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AlertModal from "../../components/AlertModal";
 import { useAuth } from "../../context/AuthContext";
-import { FinancialRecordService } from "../../services/api/financialRecordService";
+import { FinancialRecordService } from "../../services/api/FinancialRecord/financialRecordService";
 import { useCategories } from "../../hooks/Category/useCategories";
 import { useFinancialRecord } from "../../hooks/FinancialRecord/useFinancialRecord";
-import type { FinancialRecordType } from "../../services/api/financialRecordService";
+import type { FinancialRecordType } from "../../services/api/FinancialRecord/financialRecordService";
 
 type FinancialRecordFormProps = {
   mode: "create" | "view" | "edit";

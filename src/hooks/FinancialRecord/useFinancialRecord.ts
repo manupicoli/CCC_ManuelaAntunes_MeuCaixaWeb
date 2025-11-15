@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FinancialRecordService } from "../../services/api/financialRecordService";
+import { FinancialRecordService } from "../../services/api/FinancialRecord/financialRecordService";
 import { ApiException } from "../../services/api/ApiException";
 import type { FinancialRecord } from "../../models/financialrecord";
 

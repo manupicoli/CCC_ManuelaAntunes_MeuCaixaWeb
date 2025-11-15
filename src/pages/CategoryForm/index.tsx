@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCategory } from "../../hooks/Category/useCategory";
 import { useEffect, useState } from "react";
 import { FiStar } from "react-icons/fi";
-import { CategoryService } from "../../services/api/categoryService";
+import { CategoryService } from "../../services/api/Category/categoryService";
 import { useAuth } from "../../context/AuthContext";
 import AlertModal from "../../components/AlertModal";
 

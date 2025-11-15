@@ -1,7 +1,7 @@
-import type { Category } from "../../models/category";
-import { Api } from "./ApiConfig";
-import { ApiException } from "./ApiException";
-import type { PaginatedResponse } from "./types";
+import type { Category } from "../../../models/category";
+import { Api } from "../ApiConfig";
+import { ApiException } from "../ApiException";
+import type { PaginatedResponse } from "../types";
 
 export interface ListCategoriesRequest {
     token: string;

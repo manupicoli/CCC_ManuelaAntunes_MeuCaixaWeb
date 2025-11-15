@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFinancialRecords } from "../../hooks/FinancialRecord/useFinancialRecords";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { FinancialRecordService } from "../../services/api/financialRecordService";
+import { FinancialRecordService } from "../../services/api/FinancialRecord/financialRecordService";
 import { useAuth } from "../../context/AuthContext";
 import AlertModal from "../../components/AlertModal";
 import FinancialRecordTable from "../../components/FinancialRecordTable";

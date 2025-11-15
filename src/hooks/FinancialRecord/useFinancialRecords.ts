@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { FinancialRecordService } from '../../services/api/financialRecordService';
+import { FinancialRecordService } from '../../services/api/FinancialRecord/financialRecordService';
 import type { PaginatedResponse } from '../../services/api/types';
 import { useAuth } from '../../context/AuthContext';
 import { ApiException } from '../../services/api/ApiException';
