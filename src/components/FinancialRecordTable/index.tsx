@@ -1,28 +1,33 @@
-import type { FinancialRecordInterface } from "../FinancialRecordCard";
+import type { FinancialRecord } from "../../models/financialrecord";
 import FinancialRecordCard from "../FinancialRecordCard";
 
 interface FinancialRecordTableInterface {
-    records: FinancialRecordInterface[];
+    records: FinancialRecord[];
+    handleDeleteClick?: (id: string) => void;
+    navigate: (path: string) => void;
 };
 
 export default function FinancialRecordTable(props: FinancialRecordTableInterface) {
     return (
         <>
-            <table className="w-full text-sm">
+            <table className="w-full text-sm table-auto border-collapse">
                 <thead>
-                    <tr className="text-left text-gray-600">
-                        <th className="py-2">Data</th>
-                        <th className="py-2">Tipo</th>
-                        <th className="py-2">Categoria</th>
-                        <th className="py-2">Valor</th>
-                        <th className="py-2">Descrição</th>
-                        <th className="py-2">Ações</th>
+                    <tr className="text-left text-gray-800 border-b border-gray-200 text-sm tracking-wider">
+                        <th className="py-3 px-3 font-bold">Data</th>
+                        <th className="py-3 px-3 font-bold">Tipo</th>
+                        <th className="py-3 px-3 font-bold">Categoria</th>
+                        <th className="py-3 px-3 font-bold">Valor</th>
+                        <th className="py-3 px-3 font-bold">Descrição</th>
+                        <th className="py-3 px-3 font-bold text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {props.records.map((record, index) => (
-                        <tr key={index} className="border-t">
-                            <FinancialRecordCard {...record} />
+                        <tr key={index} 
+                            className={`transition ${index % 2 === 0 
+                                ? "bg-white" : "bg-gray-50"} 
+                                hover:bg-blue-50/30`}>
+                            <FinancialRecordCard content={record} handleDeleteClick={props.handleDeleteClick} navigate={props.navigate} />
                         </tr>
                     ))}
                 </tbody>

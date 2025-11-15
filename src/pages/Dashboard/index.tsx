@@ -1,13 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import FinancialRecordTable from "../../components/FinancialRecordTable";
 import SummaryCard from "../../components/SummaryCard";
-
-type RecordItem = {
-    date: string;
-    type: 'Entrada' | 'Saída';
-    category: string;
-    value: string;
-    description: string;
-};
+import { useFinancialRecords } from "../../hooks/FinancialRecord/useFinancialRecords";
 
 const mockSummary = [
     { title: 'Saldo Atual', value: 'R$ 12.345,67' },
@@ -15,14 +9,6 @@ const mockSummary = [
     { title: 'R$ Total de Saídas', value: 'R$ 7.654,33' },
     { title: 'Vencimentos Próximos', value: '3' },
 ];
-
-const mockRecords: RecordItem[] = Array.from({ length: 6 }).map((_, i) => ({
-    date: `2025-10-${10 + i}`,
-    type: i % 2 === 0 ? 'Entrada' : 'Saída',
-    category: ['Salário', 'Internet', 'Aluguel', 'Lazer', 'Mercado', 'Transporte'][i % 6],
-    value: (i % 2 === 0 ? 'R$ 1.200,00' : 'R$ 120,00'),
-    description: `Descrição exemplo ${i + 1}`,
-}));
 
 function PlaceholderDonut() {
     return (
@@ -45,6 +31,10 @@ function PlaceholderBarChart() {
 }
 
 export default function Dashboard() {
+    const { data, loading, error } = useFinancialRecords({ page: 0, size: 10 });
+
+    const navigate = useNavigate();
+
     return (
         <div className="p-6">
             <div className="flex items-center justify-between mb-6">
@@ -73,11 +63,13 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-                <div className="text-lg font-medium mb-4">Últimas Movimentações</div>
-                <div className="overflow-x-auto"></div>
-                <FinancialRecordTable records={mockRecords} />
-            </div>
+            {error ? <div className="text-red-600">Erro ao carregar registros financeiros</div>
+                   : <div className="bg-white p-4 rounded-lg shadow-sm">
+                        <div className="text-lg font-medium mb-4">Últimas Movimentações</div>
+                        <div className="overflow-x-auto"></div>
+                        {loading ? <div>Carregando...</div> 
+                                 : <FinancialRecordTable records={data?.content || []} navigate={navigate} />}
+                    </div>}
         </div>
     );
 }

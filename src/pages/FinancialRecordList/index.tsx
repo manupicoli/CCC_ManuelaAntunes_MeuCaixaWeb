@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useFinancialRecords } from "../../hooks/FinancialRecord/useFinancialRecords";
-import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FinancialRecordService } from "../../services/api/financialRecordService";
 import { useAuth } from "../../context/AuthContext";
 import AlertModal from "../../components/AlertModal";
+import FinancialRecordTable from "../../components/FinancialRecordTable";
 
 export default function FinancialRecordList() {
   const navigate = useNavigate();
@@ -57,11 +57,9 @@ export default function FinancialRecordList() {
   };
 
   if (loading) return <div className="p-6">Carregando...</div>;
-  if (error) return <div className="p-6 text-red-600">Erro ao carregar registros financeiros</div>;
 
   return (
     <div className="p-6">
-      {/* HEADER */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">Registros Financeiros</h2>
 
@@ -73,93 +71,17 @@ export default function FinancialRecordList() {
         </button>
       </div>
 
-      {/* TABELA */}
-      <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm table-auto border-collapse">
-            <thead>
-              <tr className="text-left text-gray-600 border-b border-gray-200 text-sm tracking-wider">
-                <th className="py-3 px-3 font-bold">Tipo</th>
-                <th className="py-3 px-3 font-bold">Valor</th>
-                <th className="py-3 px-3 font-bold">Categoria</th>
-                <th className="py-3 px-3 font-bold">Vencimento</th>
-                <th className="py-3 px-3 font-bold">Pagamento</th>
-                <th className="py-3 px-3 font-bold">Descrição</th>
-                <th className="py-3 px-3 text-center font-bold"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {data?.content.map((record, idx) => (
-                <tr
-                  key={record.id}
-                  className={`transition ${
-                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-blue-50/30`}
-                >
-                  <td className="py-3 px-3 font-medium text-gray-800">
-                    {record.type === "INCOME" ? (
-                      <span className="text-green-700 font-semibold">Entrada</span>
-                    ) : (
-                      <span className="text-red-700 font-semibold">Saída</span>
-                    )}
-                  </td>
-
-                  <td className="py-3 px-3 text-gray-800">
-                    R$ {record.amount.toFixed(2)}
-                  </td>
-
-                  <td className="py-3 px-3 text-gray-700">
-                    {record.categoryTitle || "—"}
-                  </td>
-
-                  <td className="py-3 px-3 text-gray-700">
-                    {record.dueDate ? new Date(record.dueDate).toLocaleDateString() : "—"}
-                  </td>
-
-                  <td className="py-3 px-3 text-gray-700">
-                    {record.paymentDate
-                      ? new Date(record.paymentDate).toLocaleDateString()
-                      : "—"}
-                  </td>
-
-                  <td className="py-3 px-3 text-gray-600 truncate max-w-xl">
-                    {record.description || "—"}
-                  </td>
-
-                  <td className="py-3 px-3 text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <button
-                        title="Visualizar"
-                        onClick={() => navigate(`/registros-financeiros/${record.id}`)}
-                        className="p-2 rounded-full hover:bg-gray-100 text-gray-600 cursor-pointer transition"
-                      >
-                        <FiEye />
-                      </button>
-
-                      <button
-                        title="Editar"
-                        onClick={() => navigate(`/registros-financeiros/${record.id}/editar`)}
-                        className="p-2 rounded-full hover:bg-blue-100 text-blue-600 cursor-pointer transition"
-                      >
-                        <FiEdit2 />
-                      </button>
-
-                      <button
-                        title="Excluir"
-                        onClick={() => handleDeleteClick(record.id)}
-                        className="p-2 rounded-full hover:bg-red-100 text-red-600 cursor-pointer transition"
-                      >
-                        <FiTrash2 />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {error 
+      ? <div className="bg-red-100 text-red-700 p-4 rounded-lg">Erro ao carregar registros financeiros.</div>
+      : <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+          <div className="overflow-x-auto">
+            <FinancialRecordTable
+              records={data?.content || []}
+              navigate={navigate}
+              handleDeleteClick={handleDeleteClick}
+            />
+          </div>
+      </div>}
 
       {data && (
         <div className="flex items-center justify-center gap-2 mt-6">
