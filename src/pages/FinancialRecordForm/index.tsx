@@ -53,10 +53,22 @@ export default function FinancialRecordForm({ mode }: FinancialRecordFormProps) 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => {
+      const next = {
+        ...prev,
+        [name]: value,
+      } as typeof prev;
+
+      if (name === "type") {
+        if (value === "INCOME") {
+          next.dueDate = "";
+        } else if (value === "EXPENSE") {
+          next.paymentDate = "";
+        }
+      }
+
+      return next;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -182,29 +194,33 @@ export default function FinancialRecordForm({ mode }: FinancialRecordFormProps) 
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-gray-700 mb-1">Data de Vencimento</label>
-            <input
-              type="datetime-local"
-              name="dueDate"
-              value={formData.dueDate}
-              onChange={handleChange}
-              disabled={!isEditable}
-              className="w-full border rounded-lg px-3 py-2 disabled:bg-gray-100"
-            />
-          </div>
+          {formData.type !== "INCOME" && (
+            <div>
+              <label className="block text-gray-700 mb-1">Data de Vencimento</label>
+              <input
+                type="datetime-local"
+                name="dueDate"
+                value={formData.dueDate}
+                onChange={handleChange}
+                disabled={!isEditable}
+                className="w-full border rounded-lg px-3 py-2 disabled:bg-gray-100"
+              />
+            </div>
+          )}
 
-          <div>
-            <label className="block text-gray-700 mb-1">Data de Pagamento</label>
-            <input
-              type="datetime-local"
-              name="paymentDate"
-              value={formData.paymentDate}
-              onChange={handleChange}
-              disabled={!isEditable}
-              className="w-full border rounded-lg px-3 py-2 disabled:bg-gray-100"
-            />
-          </div>
+          {formData.type !== "EXPENSE" && (
+            <div>
+              <label className="block text-gray-700 mb-1">Data de Pagamento</label>
+              <input
+                type="datetime-local"
+                name="paymentDate"
+                value={formData.paymentDate}
+                onChange={handleChange}
+                disabled={!isEditable}
+                className="w-full border rounded-lg px-3 py-2 disabled:bg-gray-100"
+              />
+            </div>
+          )}
         </div>
 
         <div>
