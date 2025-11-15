@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../context/AuthContext';
 import { UserService } from '../../services/api/User/userService';
+import { ApiException } from '../../services/api/ApiException';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -25,10 +26,16 @@ export default function Login() {
 
     try {
       const response = await UserService.loginUser({ username, password });      
+
+      if (response instanceof ApiException) {
+          throw new Error(response.message);
+      }
+
       setToken(response.accessToken);
       setUserId(response.id);
       setCustomerCode(response.customerCode);
       setRefreshToken(response.refreshToken);
+      
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError('Usuário ou senha inválidos.');

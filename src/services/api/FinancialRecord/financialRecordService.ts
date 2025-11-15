@@ -1,12 +1,8 @@
-import type { FinancialRecord } from "../../models/financialrecord";
-import { Api } from "./ApiConfig";
-import { ApiException } from "./ApiException";
-import type { PaginatedResponse } from "./types";
-
-export interface FinancialRecordType {
-    "INCOME": "INCOME";
-    "EXPENSE": "EXPENSE";
-}
+import type { FinancialRecordType } from "../../../models/financialrecord";
+import type { FinancialRecord } from "../../../models/financialrecord";
+import { Api } from "./../ApiConfig";
+import { ApiException } from "./../ApiException";
+import type { PaginatedResponse } from "./../types";
 
 export interface ListFinancialRecordsRequest {
   token: string;
@@ -24,7 +20,7 @@ export interface CreateUpdateFinancialRecordRequest {
   id?: string;
   token: string;
   customerCode: string;
-  type: FinancialRecordType[keyof FinancialRecordType];
+  type: FinancialRecordType;
   amount: number;
   dueDate: string | null;
   paymentDate: string | null;

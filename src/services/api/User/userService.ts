@@ -1,3 +1,4 @@
+import type { UserRole } from "../../../models/user";
 import { Api } from "../ApiConfig";
 import { ApiException } from "../ApiException";
 
@@ -28,8 +29,16 @@ interface GetUserDetailsRequest {
   token: string;
 }
 
+interface GetUserDetailsResponse {
+  name: string;
+  companyName: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+}
+
 export const UserService = {
-  async loginUser(data: LoginRequest): Promise<LoginResponse> {
+  async loginUser(data: LoginRequest): Promise<LoginResponse | ApiException> {
     return await Api().post<LoginResponse>(`/v1/user/login`, data)
     .then(res => res.data)
     .catch((error) => {
@@ -47,7 +56,7 @@ export const UserService = {
     });
   },
 
-  async getUserDetails(data: GetUserDetailsRequest) {
+  async getUserDetails(data: GetUserDetailsRequest): Promise<GetUserDetailsResponse | ApiException> {
     return await Api().get(`/v1/user`, {
         headers: { Authorization: `Bearer ${data.token}` }
     })

@@ -1,6 +1,8 @@
+export type FinancialRecordType = "INCOME" | "EXPENSE";
+
 export interface FinancialRecord {
   id: string;
-  type: "INCOME" | "EXPENSE";
+  type: FinancialRecordType;
   amount: number;
   categoryTitle: string;
   categoryId: number;
