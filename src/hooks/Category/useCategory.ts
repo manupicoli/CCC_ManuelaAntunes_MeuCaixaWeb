@@ -48,7 +48,7 @@ export function useCategory(id?: string) {
 
             throw err;
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
   }, [id, token]);
 
