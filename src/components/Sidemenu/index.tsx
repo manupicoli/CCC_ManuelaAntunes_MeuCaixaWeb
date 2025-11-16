@@ -23,8 +23,13 @@ export default function Sidemenu (props: SidemenuInterface) {
     const navigate = useNavigate();
 
     return (
-        <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: props.collapsed ? props.collapsedWidth : props.expandedWidth, transition: 'width 200ms ease', zIndex: 40 }}>
-            <Sidebar collapsed={props.collapsed} className="min-h-screen">
+        <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, 
+                        width: props.collapsed ? props.collapsedWidth : props.expandedWidth, 
+                        transition: 'width 200ms ease', zIndex: 40, overflow: 'hidden', boxSizing: 'border-box' 
+                    }} 
+            className="bg-white shadow-md"
+        >
+            <Sidebar collapsed={props.collapsed} style={{ width: '100%', height: '100%' }} className="h-full bg-transparent">
                 <Menu closeOnClick={true}>
                     <MenuItem icon={<CiMenuBurger />} onClick={props.onToggle} />
                     <MenuItem icon={<RxDashboard />} component={<Link to="/dashboard" />}> Dashboard </MenuItem>
