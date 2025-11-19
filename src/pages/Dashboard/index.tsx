@@ -6,7 +6,6 @@ import { useDashboard } from "../../hooks/Dashboard/useDashboard";
 import CategoryDonutChart from "../../components/CategoryDonutChart";
 import MonthlyBarChart from "../../components/MonthlyBarChart";
 import EmptyChart from "../../components/EmptyChart";
-import { CgProfile } from "react-icons/cg";
 
 export default function Dashboard() {
     const { data, loading, error } = useFinancialRecords({ page: 0, size: 10 });
@@ -25,11 +24,6 @@ export default function Dashboard() {
         <div className="p-6">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Dashboard</h2>
-                <div className="flex items-center gap-3 text-sm text-gray-600">
-                    <button className="pr-2 cursor-pointer">
-                        <CgProfile size={35} />
-                    </button>
-                </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
