@@ -29,6 +29,15 @@ interface GetUserDetailsRequest {
   token: string;
 }
 
+export interface UpdateUserRequest {
+  id: string;
+  token: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  phone: string;
+}
+
 export const UserService = {
   async loginUser(data: LoginRequest): Promise<LoginResponse | ApiException> {
     return await Api().post<LoginResponse>(`/v1/user/login`, data)
@@ -55,6 +64,21 @@ export const UserService = {
     .catch((error) => {
         console.log("Error getting user details:", error);
         throw new ApiException(error.response?.message || "Erro ao obter detalhes do usuário");
+    });
+  },
+
+  async updateUser(data: UpdateUserRequest): Promise<void | ApiException> {
+    await Api().put(`/v1/user/${data.id}`, {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        companyName: data.companyName,
+        phone: data.phone
+    }, {
+        headers: { Authorization: `Bearer ${data.token}` }
+    })
+    .catch((error) => {
+        console.log("Error updating user:", error);
+        throw new ApiException(error.response?.message || "Erro ao atualizar usuário");
     });
   },
 

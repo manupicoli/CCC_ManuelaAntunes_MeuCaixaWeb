@@ -39,7 +39,8 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/registros-financeiros/:id" element={<FinancialRecordForm mode='view'/>} />
               <Route path="/registros-financeiros/:id/editar" element={<FinancialRecordForm mode='edit'/>} />
               <Route path="/registros-financeiros/novo" element={<FinancialRecordForm mode='create'/>} />
-              <Route path="perfil" element={<Profile/>} />
+              <Route path="perfil" element={<Profile mode="view" />} />
+              <Route path="perfil/editar" element={<Profile mode="edit" />} />
 
           </Route>
         </Routes>
