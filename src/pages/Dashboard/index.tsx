@@ -5,6 +5,7 @@ import { useFinancialRecords } from "../../hooks/FinancialRecord/useFinancialRec
 import { useDashboard } from "../../hooks/Dashboard/useDashboard";
 import CategoryDonutChart from "../../components/CategoryDonutChart";
 import MonthlyBarChart from "../../components/MonthlyBarChart";
+import EmptyChart from "../../components/EmptyChart";
 import { CgProfile } from "react-icons/cg";
 
 export default function Dashboard() {
@@ -43,8 +44,15 @@ export default function Dashboard() {
                         <div className="text-lg font-bold mb-4">Categorias</div>
                         {dashboardLoading || !dashboardData ? (
                             <div>Carregando...</div>
-                        ) : (
+                        ) : dashboardData.categorySummary?.length ? (
                             <CategoryDonutChart data={dashboardData.categorySummary} />
+                        ) : (
+                            <EmptyChart
+                                title="Sem categorias"
+                                message="Parece que você ainda não adicionou categorias. Que tal começar agora?"
+                                actionLabel="Ver categorias"
+                                onAction={() => navigate('/categorias')}
+                            />
                         )}
 
                     </div>
@@ -53,8 +61,15 @@ export default function Dashboard() {
                         <div className="text-lg font-bold mb-4">Movimentações por Mês</div>
                         {dashboardLoading || !dashboardData ? (
                             <div>Carregando...</div>
-                        ) : (
+                        ) : dashboardData.monthlySummary?.length ? (
                             <MonthlyBarChart data={dashboardData.monthlySummary} />
+                        ) : (
+                            <EmptyChart
+                                title="Sem movimentações"
+                                message="Você ainda não tem movimentações registradas. Comece agora mesmo!"
+                                actionLabel="Nova movimentação"
+                                onAction={() => navigate('/registros-financeiros/novo')}
+                            />
                         )}
 
                     </div>
