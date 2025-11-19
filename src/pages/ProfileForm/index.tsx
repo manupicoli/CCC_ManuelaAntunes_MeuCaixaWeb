@@ -61,16 +61,16 @@ export default function ProfileForm() {
     }
 
     return (
-        <div className="p-8 flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="p-2 flex flex-col items-center justify-center min-h-screen bg-gray-100">
             {loading 
             ? <div className="text-2xl font-semibold text-gray-800 text-center">Carregando...</div>
             : <div className="flex flex-col items-center justify-center min-h-screen w-full">
-                <div className="mb-6 max-w-lg flex justify-center">
+                <div className="mb-4 max-w-lg flex justify-center">
                     <h2 className="text-2xl font-semibold text-gray-800 text-center">Cadastro de usuário</h2>
                 </div>
 
                 <div className="w-full max-w-lg">
-                    <form onSubmit={handleSubmit} className="w-full bg-white p-6 rounded-lg shadow-sm">
+                    <form onSubmit={handleSubmit} className="w-full bg-white p-6 rounded-lg shadow-sm text-sm">
                         <div>
                             <label className="block text-gray-700 mb-1">Nome</label>
                             <input
