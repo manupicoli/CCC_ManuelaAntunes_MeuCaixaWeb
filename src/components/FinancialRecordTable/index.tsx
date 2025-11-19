@@ -1,5 +1,6 @@
 import type { FinancialRecord } from "../../models/financialrecord";
 import FinancialRecordCard from "../FinancialRecordCard";
+import { GrTransaction } from "react-icons/gr";
 
 interface FinancialRecordTableInterface {
     records: FinancialRecord[];
@@ -22,14 +23,40 @@ export default function FinancialRecordTable(props: FinancialRecordTableInterfac
                     </tr>
                 </thead>
                 <tbody>
-                    {props.records.map((record, index) => (
-                        <tr key={index} 
-                            className={`transition ${index % 2 === 0 
-                                ? "bg-white" : "bg-gray-50"} 
-                                hover:bg-blue-50/30`}>
-                            <FinancialRecordCard content={record} handleDeleteClick={props.handleDeleteClick} navigate={props.navigate} />
+                    {props.records.length === 0 ? (
+                        <tr>
+                            <td colSpan={6} className="py-12 px-3">
+                                <div className="flex flex-col items-center justify-center gap-3">
+                                    <div className="text-gray-300 w-16 h-16">
+                                        <GrTransaction size={48} />
+                                    </div>
+
+                                    <div className="text-center text-gray-600">
+                                        <div className="font-medium">Nenhum registro financeiro encontrado</div>
+                                        <div className="text-sm mt-1">Adicione seu primeiro registro para começar a controlar suas finanças.</div>
+                                    </div>
+
+                                    <div>
+                                        <button
+                                            onClick={() => props.navigate('/registros-financeiros/novo')}
+                                            className="mt-3 inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 cursor-pointer transition"
+                                        >
+                                            Novo registro financeiro
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
-                    ))}
+                    ) : (
+                        props.records.map((record, index) => (
+                            <tr key={index} 
+                                className={`transition ${index % 2 === 0 
+                                    ? "bg-white" : "bg-gray-50"} 
+                                    hover:bg-blue-50/30`}>
+                                <FinancialRecordCard content={record} handleDeleteClick={props.handleDeleteClick} navigate={props.navigate} />
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </>

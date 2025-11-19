@@ -67,7 +67,7 @@ export default function Dashboard() {
                             <EmptyChart
                                 title="Sem movimentações"
                                 message="Você ainda não tem movimentações registradas. Comece agora mesmo!"
-                                actionLabel="Nova movimentação"
+                                actionLabel="Novo registro financeiro"
                                 onAction={() => navigate('/registros-financeiros/novo')}
                             />
                         )}
