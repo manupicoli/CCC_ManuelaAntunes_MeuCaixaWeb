@@ -16,7 +16,7 @@ interface LoginResponse {
   refreshExpiresIn: string;
 }
 
-interface CreateUserRequest {
+export interface CreateUserRequest {
   firstName: string;
   lastName: string;
   companyName: string;
@@ -39,9 +39,8 @@ export const UserService = {
     });
   },
 
-  async createUser(data: CreateUserRequest) {
-    return await Api().post(`/v1/user/create`, data)
-    .then(res => res.data)
+  async createUser(data: CreateUserRequest): Promise<void | ApiException> {
+    await Api().post(`/v1/user/create`, data)
     .catch((error) => {
         console.log("Error creating user:", error);
         throw new ApiException(error.response?.message || "Erro ao criar usuário");

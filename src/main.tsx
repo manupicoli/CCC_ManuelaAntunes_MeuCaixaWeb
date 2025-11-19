@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import CategoryForm from './pages/CategoryForm';
 import FinancialRecordList from './pages/FinancialRecordList';
 import FinancialRecordForm from './pages/FinancialRecordForm';
+import ProfileForm from './pages/ProfileForm';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path='/perfil/criar' element={<ProfileForm />} />
 
           <Route
             path="/"

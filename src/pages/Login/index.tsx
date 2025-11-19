@@ -35,7 +35,7 @@ export default function Login() {
       setUserId(response.id);
       setCustomerCode(response.customerCode);
       setRefreshToken(response.refreshToken);
-      
+
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError('Usuário ou senha inválidos.');
@@ -70,8 +70,18 @@ export default function Login() {
             type="submit"
             disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}
           </button>
+
           {error && <div className="text-red-500 bg-white p-2 rounded">{error}</div>}
         </form>
+
+        <div className="mt-6 text-center text-sm text-gray-600">
+          Não possui uma conta?{' '}
+          <button 
+            className="text-blue-600 hover:underline cursor-pointer"
+            onClick={() => navigate('/perfil/criar')}>
+              Crie uma agora
+          </button>
+        </div>
       </div>
     </div>
   );
