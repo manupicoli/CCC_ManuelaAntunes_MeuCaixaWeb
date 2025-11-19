@@ -6,6 +6,7 @@ import { FinancialRecordService } from "../../services/api/FinancialRecord/finan
 import { useAuth } from "../../context/AuthContext";
 import AlertModal from "../../components/AlertModal";
 import FinancialRecordTable from "../../components/FinancialRecordTable";
+import ExportReportModal from "../../components/ExportReportModal";
 
 export default function FinancialRecordList() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function FinancialRecordList() {
 
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const [alertData, setAlertData] = useState({
     open: false,
@@ -63,12 +65,21 @@ export default function FinancialRecordList() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">Registros Financeiros</h2>
 
-        <button
-          onClick={() => navigate("/registros-financeiros/novo")}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer shadow-sm"
-        >
-          Novo Registro
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowExportModal(true)}
+            className="bg-white text-gray-800 px-3 py-2 rounded-lg hover:bg-gray-100 transition cursor-pointer border"
+          >
+            Exportar
+          </button>
+
+          <button
+            onClick={() => navigate("/registros-financeiros/novo")}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer shadow-sm"
+          >
+            Novo Registro
+          </button>
+        </div>
       </div>
 
       {error 
@@ -151,6 +162,10 @@ export default function FinancialRecordList() {
             </button>
           </div>
         </AlertModal>
+      )}
+
+      {showExportModal && (
+        <ExportReportModal open={showExportModal} onClose={() => setShowExportModal(false)} />
       )}
 
       <AlertModal
