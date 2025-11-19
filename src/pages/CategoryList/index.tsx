@@ -18,6 +18,7 @@ export default function CategoryList() {
 
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showConfirmWithRecords, setShowConfirmWithRecords] = useState(false);
     const [alertData, setAlertData] = useState({
         open: false,
         type: "success" as "success" | "error" | "warning",
@@ -25,9 +26,27 @@ export default function CategoryList() {
         message: "",
     });
 
-    const handleDeleteClick = (id: string) => {
+    const handleDeleteClick = async (id: string) => {
         setSelectedCategoryId(id);
-        setShowConfirmModal(true);
+
+        try {
+            const res = await CategoryService.getCategoryDetails({ id, token: token! });
+
+            if (res instanceof Error) {
+                setAlertData({ open: true, type: 'error', title: 'Erro', message: (res as any).message || 'Erro ao verificar categoria.' });
+                setSelectedCategoryId(null);
+                return;
+            }
+
+            if ((res as any).hasRecords) {
+                setShowConfirmWithRecords(true);
+            } else {
+                setShowConfirmModal(true);
+            }
+        } catch (err) {
+            setAlertData({ open: true, type: 'error', title: 'Erro', message: 'Erro ao verificar categoria.' });
+            setSelectedCategoryId(null);
+        }
     };
 
     const confirmDelete = async () => {
@@ -52,6 +71,7 @@ export default function CategoryList() {
             });
         } finally {
             setShowConfirmModal(false);
+            setShowConfirmWithRecords(false);
             setSelectedCategoryId(null);
         }
     };
@@ -192,6 +212,31 @@ export default function CategoryList() {
                     </button>
                     <button
                     onClick={() => setShowConfirmModal(false)}
+                    className="border px-4 py-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
+                    >
+                    Cancelar
+                    </button>
+                </div>
+                </AlertModal>
+            )}
+
+            {showConfirmWithRecords && (
+                <AlertModal
+                    open={showConfirmWithRecords}
+                    type="warning"
+                    title="Categoria contém registros"
+                    message="Esta categoria possui registros associados. Deseja realmente excluí-la?."
+                    onClose={() => setShowConfirmWithRecords(false)}
+                >
+                <div className="flex justify-center gap-4 mt-4">
+                    <button
+                    onClick={confirmDelete}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
+                    >
+                    Sim, excluir
+                    </button>
+                    <button
+                    onClick={() => setShowConfirmWithRecords(false)}
                     className="border px-4 py-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
                     >
                     Cancelar
